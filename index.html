@@ -27,7 +27,7 @@
 <footer class="footer"><div class="wrap"><div>© <span id="year"></span> Texas Badlands DayZ. Community-run DayZ server.</div><span>Not affiliated with Bohemia Interactive.</span></div></footer>
 <script>
   // Replace these empty values with your official community URLs before publishing.
-  const LINKS = {discord: '', facebook: '', kofi: ''};
+  const LINKS = {discord: 'https://discord.gg/fXeP7mnURk', facebook: 'https://www.facebook.com/profile.php?id=61595218304769', kofi: 'https://ko-fi.com/texas_badlands_dayz'};
   document.getElementById('year').textContent = new Date().getFullYear();
   const menu = document.getElementById('menu'), links = document.getElementById('links');
   menu.addEventListener('click',()=>{const open=links.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));});
