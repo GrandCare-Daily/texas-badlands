@@ -20,6 +20,32 @@ $$;
 REVOKE ALL ON FUNCTION public.tb_my_staff_role() FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.tb_my_staff_role() TO authenticated;
 
+-- Server-side authorization for contest start/finish: OWNER ONLY.
+CREATE OR REPLACE FUNCTION recruitment_private.tb_is_owner()
+RETURNS boolean
+LANGUAGE sql STABLE SECURITY DEFINER
+SET search_path = ''
+AS $
+  SELECT EXISTS (
+    SELECT 1
+    FROM recruitment_private.tb_staff AS s
+    WHERE s.user_id = (SELECT auth.uid())
+      AND s.role = 'owner'
+  )
+$;
+
+REVOKE ALL ON FUNCTION recruitment_private.tb_is_owner() FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION recruitment_private.tb_is_owner() TO authenticated;
+
+DROP POLICY IF EXISTS tb_contests_staff_update ON public.tb_contests;
+DROP POLICY IF EXISTS tb_contests_owner_update ON public.tb_contests;
+
+CREATE POLICY tb_contests_owner_update
+ON public.tb_contests
+FOR UPDATE TO authenticated
+USING ((SELECT recruitment_private.tb_is_owner()))
+WITH CHECK ((SELECT recruitment_private.tb_is_owner()));
+
 COMMIT;
 
 -- OWNER BOOTSTRAP (run separately AFTER registering your own website account):
