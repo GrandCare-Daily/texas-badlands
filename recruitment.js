@@ -399,12 +399,71 @@
     await loadIdentity();
   });
 
-  byId("resetPassword").addEventListener("click", async () => {
-    const email = window.prompt("Enter the email address registered to your recruitment account:");
-    if (!email) return;
-    const { error } = await client.auth.resetPasswordForEmail(email.trim(),
-      { redirectTo: window.location.origin + "/recruitment.html" });
-    message(error ? errorText(error) : "If that account exists, a password reset email will be sent.", !!error);
+  byId("resetPassword").addEventListener("click", () => {
+    byId("passwordRequestForm").hidden = false;
+    byId("recoveryEmail").value = byId("loginEmail").value.trim();
+    byId("recoveryEmail").focus();
+  });
+  byId("cancelPasswordRequest").addEventListener("click", () => {
+    byId("passwordRequestForm").hidden = true;
+  });
+
+  byId("passwordRequestForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = byId("recoveryEmail").value.trim();
+    const submit = byId("passwordRequestForm").querySelector("button[type=submit]");
+    submit.disabled = true;
+    try {
+      const { error } = await client.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + "/recruitment.html"
+      });
+      if (error) {
+        const cooldown = error.status === 429 ||
+          error.code === "over_email_send_rate_limit" ||
+          error.code === "over_request_rate_limit";
+        message(cooldown
+          ? "Supabase is temporarily limiting recovery requests. Do not request another email yet. "
+            + errorText(error)
+          : "Password recovery request failed: " + errorText(error), true);
+      } else {
+        message("Recovery request accepted. If this address belongs to an account and email delivery is working, "
+          + "a new password-reset email will arrive. Check Resend delivery records if none arrives.");
+        byId("passwordRequestForm").hidden = true;
+      }
+    } finally {
+      submit.disabled = false;
+    }
+  });
+
+  function showPasswordChange(isRecovery) {
+    byId("changePasswordTitle").textContent = isRecovery
+      ? "Finish resetting your password" : "Change your account password";
+    byId("passwordChangePanel").hidden = false;
+    byId("passwordChangePanel").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  byId("changePassword").addEventListener("click", () => showPasswordChange(false));
+  byId("cancelPasswordChange").addEventListener("click", () => {
+    byId("passwordChangePanel").hidden = true;
+    byId("passwordChangeForm").reset();
+  });
+  byId("passwordChangeForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const password = byId("newPassword").value;
+    if (password.length < 12) return message("Password must contain at least 12 characters.", true);
+    if (password !== byId("newPasswordConfirm").value) {
+      return message("The two passwords do not match.", true);
+    }
+    const submit = byId("passwordChangeForm").querySelector("button[type=submit]");
+    submit.disabled = true;
+    try {
+      const { error } = await client.auth.updateUser({ password });
+      if (error) return message("Password update failed: " + errorText(error), true);
+      byId("passwordChangePanel").hidden = true;
+      byId("passwordChangeForm").reset();
+      message("Password updated. Sign in with your new password if prompted.");
+    } finally {
+      submit.disabled = false;
+    }
   });
 
   byId("signout").addEventListener("click", async () => {
@@ -463,18 +522,23 @@
   });
 
   async function init() {
+    const params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+    const query = new URLSearchParams(window.location.search);
+    const authError = params.get("error_description") || query.get("error_description");
+    if (authError) {
+      message("Authentication link could not be used: " +
+        authError.replace(/\\+/g, " ") +
+        ". Request a fresh link if needed.", true);
+    }
     if (!client) {
       message("Unable to load the Supabase client. Please reload or check your connection.", true);
       return;
     }
     client.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
-        setTimeout(async () => {
-          const password = window.prompt("Enter your new password (at least 8 characters):");
-          if (password && password.length >= 8) {
-            const { error } = await client.auth.updateUser({ password });
-            message(error ? errorText(error) : "Password updated successfully.", !!error);
-          }
+        setTimeout(() => {
+          showPasswordChange(true);
+          message("Recovery link accepted. Choose a new password in the form below.");
         }, 0);
       }
       if (["SIGNED_IN", "SIGNED_OUT", "USER_UPDATED", "TOKEN_REFRESHED"].includes(event)) {
