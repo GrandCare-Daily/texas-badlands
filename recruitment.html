@@ -27,6 +27,17 @@
 <div class="wrap"><div id="alert" class="notice" role="status" aria-live="polite" hidden></div></div>
 <section class="section" id="leaderboard"><div class="wrap"><div class="section-heading"><div><div class="eyebrow">Recruitment Rankings</div><h2>THE <span>LEADERBOARD.</span></h2></div><p>Only recruits who meet the verified playtime requirements count toward the score. Zero verified referrals means zero points.</p></div><div class="panel"><div class="table-scroll"><table><thead><tr><th>Rank</th><th>Recruiter</th><th>Qualified Recruits</th></tr></thead><tbody id="leaderboardBody"><tr><td colspan="3">Loading rankings…</td></tr></tbody></table></div><p class="muted tiny">Referrals and playtime are subject to staff verification. Rankings are not an admin appointment.</p></div></div></section>
 <section class="section alt" id="dashboard"><div class="wrap"><div class="section-heading"><div><div class="eyebrow">Your Recruitment HQ</div><h2>BUILD <span>YOUR TEAM.</span></h2></div><p>Your referral code, confirmed recruits, reported activity, and progress toward the contest.</p></div>
+<div id="passwordChangePanel" class="panel" hidden style="margin-bottom:24px">
+<h3 id="changePasswordTitle">Set a new password</h3>
+<p class="muted">Set a new password for your Texas Badlands Recruitment account.</p>
+<form id="passwordChangeForm">
+<label for="newPassword">New password (12 characters or longer)</label>
+<input type="password" id="newPassword" minlength="12" autocomplete="new-password" required>
+<label for="newPasswordConfirm">Confirm your new password</label>
+<input type="password" id="newPasswordConfirm" minlength="12" autocomplete="new-password" required>
+<button class="button" type="submit">Save New Password</button>
+<button class="button secondary" id="cancelPasswordChange" type="button">Cancel</button>
+</form></div>
 <div id="signedOut" class="two-col">
 <div class="panel"><h3>Create your account</h3><p class="muted">Sign up to get a personal referral link. Invitees must confirm who recruited them.</p><form id="signupForm">
 <label for="signupName">DayZ character name</label><input id="signupName" name="dayz_name" maxlength="32" required autocomplete="nickname" placeholder="Your in-game name">
@@ -38,9 +49,16 @@
 <label for="loginPassword">Password</label><input id="loginPassword" name="password" type="password" required autocomplete="current-password">
 <button class="button full" type="submit">Sign In</button></form>
 <button class="text-btn" id="resetPassword" type="button">Forgot password?</button>
+<form id="passwordRequestForm" hidden>
+<label for="recoveryEmail">Email address on your account</label>
+<input type="email" autocomplete="email" id="recoveryEmail" required>
+<button type="submit" class="button full">Email Password Reset Link</button>
+<button type="button" class="text-btn" id="cancelPasswordRequest">Cancel</button>
+<p class="muted tiny">Use a fresh reset link only. If Supabase limits requests, wait before trying again.</p>
+</form>
 </div></div>
 <div id="signedIn" hidden>
-<div class="account-bar"><div><span class="eyebrow">Signed in as</span><strong id="accountName"></strong><small id="accountEmail"></small></div><button class="button secondary" id="signout" type="button">Sign Out</button></div>
+<div class="account-bar"><div><span class="eyebrow">Signed in as</span><strong id="accountName"></strong><small id="accountEmail"></small></div><div class="inline-input"><button class="button secondary" id="changePassword" type="button">Change Password</button><button class="button secondary" id="signout" type="button">Sign Out</button></div></div>
 <div class="two-col">
 <div class="panel"><h3>Your Recruiter Link</h3><p>Send this link to the friends you invite. Each friend must log in and confirm you as their recruiter.</p><label for="shareLink">Shareable referral URL</label><div class="inline-input"><input id="shareLink" readonly><button class="button" id="copyLink" type="button">Copy</button></div><p class="muted tiny">Your code: <strong id="myCode"></strong></p>
 <form id="nameForm" class="small-form"><label for="editName">Update your DayZ name</label><div class="inline-input"><input id="editName" maxlength="32" required><button type="submit" class="button secondary">Save</button></div></form></div>
