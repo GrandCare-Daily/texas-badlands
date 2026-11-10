@@ -527,7 +527,7 @@
     const authError = params.get("error_description") || query.get("error_description");
     if (authError) {
       message("Authentication link could not be used: " +
-        authError.replace(/\\+/g, " ") +
+        authError +
         ". Request a fresh link if needed.", true);
     }
     if (!client) {
