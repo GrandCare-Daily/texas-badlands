@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08120d">
+<meta name="description" content="Texas Badlands DayZ recruitment challenge: invite survivors, earn verified referrals, and compete for a trial moderator interview.">
+<title>Recruitment HQ | Texas Badlands DayZ</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="recruitment.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap top-inner">
+<a class="brand" href="/"><img src="logo.png" alt="Texas Badlands logo"><span>TEXAS <em>BADLANDS</em></span></a>
+<nav aria-label="Recruitment navigation"><a href="/">Main Website</a><a href="#leaderboard">Leaderboard</a><a href="#dashboard">My Dashboard</a><a class="nav-cta" href="https://discord.gg/fXeP7mnURk" target="_blank" rel="noopener noreferrer">Discord ↗</a></nav>
+</div></header>
+<main>
+<section class="hero"><div class="wrap hero-grid"><div>
+<div class="eyebrow">DayZ PC · Texas Badlands Community</div>
+<h1>RECRUIT <span>THE BADLANDS.</span></h1>
+<p>Invite real survivors. Help them find their home. Earn your place on the recruitment leaderboard—and consideration for the moderator team.</p>
+<div class="hero-actions"><a class="button" href="#dashboard">Join the Challenge</a><a class="button secondary" href="#rules">View the Rules</a></div>
+</div><div class="hero-panel"><div class="eyebrow">Contest Status</div><strong id="contestStatus" class="status-large">Checking…</strong><p id="contestDates">Loading contest details.</p><div class="stat-row"><div><b>6 hours</b><small>Verified playtime</small></div><div><b>3 days</b><small>Separate days</small></div><div><b>14 days</b><small>To qualify</small></div></div></div></div></section>
+<div class="wrap"><div id="alert" class="notice" role="status" aria-live="polite" hidden></div></div>
+<section class="section" id="leaderboard"><div class="wrap"><div class="section-heading"><div><div class="eyebrow">Recruitment Rankings</div><h2>THE <span>LEADERBOARD.</span></h2></div><p>Only recruits who meet the verified playtime requirements count toward the score. Zero verified referrals means zero points.</p></div><div class="panel"><div class="table-scroll"><table><thead><tr><th>Rank</th><th>Recruiter</th><th>Qualified Recruits</th></tr></thead><tbody id="leaderboardBody"><tr><td colspan="3">Loading rankings…</td></tr></tbody></table></div><p class="muted tiny">Referrals and playtime are subject to staff verification. Rankings are not an admin appointment.</p></div></div></section>
+<section class="section alt" id="dashboard"><div class="wrap"><div class="section-heading"><div><div class="eyebrow">Your Recruitment HQ</div><h2>BUILD <span>YOUR TEAM.</span></h2></div><p>Your referral code, confirmed recruits, reported activity, and progress toward the contest.</p></div>
+<div id="signedOut" class="two-col">
+<div class="panel"><h3>Create your account</h3><p class="muted">Sign up to get a personal referral link. Invitees must confirm who recruited them.</p><form id="signupForm">
+<label for="signupName">DayZ character name</label><input id="signupName" name="dayz_name" maxlength="32" required autocomplete="nickname" placeholder="Your in-game name">
+<label for="signupEmail">Email</label><input id="signupEmail" name="email" required type="email" autocomplete="email" placeholder="you@example.com">
+<label for="signupPassword">Password (8+ characters)</label><input id="signupPassword" name="password" required type="password" minlength="8" autocomplete="new-password">
+<button class="button full" type="submit">Register</button></form><p class="muted tiny">Use your own email. Confirm it if Supabase sends a confirmation link. Never reuse your DayZ password.</p></div>
+<div class="panel"><h3>Already registered?</h3><p class="muted">Sign in to claim a referral, submit check-ins, or track the players you've invited.</p><form id="signinForm">
+<label for="loginEmail">Email</label><input id="loginEmail" name="email" type="email" required autocomplete="email">
+<label for="loginPassword">Password</label><input id="loginPassword" name="password" type="password" required autocomplete="current-password">
+<button class="button full" type="submit">Sign In</button></form>
+<button class="text-btn" id="resetPassword" type="button">Forgot password?</button>
+</div></div>
+<div id="signedIn" hidden>
+<div class="account-bar"><div><span class="eyebrow">Signed in as</span><strong id="accountName"></strong><small id="accountEmail"></small></div><button class="button secondary" id="signout" type="button">Sign Out</button></div>
+<div class="two-col">
+<div class="panel"><h3>Your Recruiter Link</h3><p>Send this link to the friends you invite. Each friend must log in and confirm you as their recruiter.</p><label for="shareLink">Shareable referral URL</label><div class="inline-input"><input id="shareLink" readonly><button class="button" id="copyLink" type="button">Copy</button></div><p class="muted tiny">Your code: <strong id="myCode"></strong></p>
+<form id="nameForm" class="small-form"><label for="editName">Update your DayZ name</label><div class="inline-input"><input id="editName" maxlength="32" required><button type="submit" class="button secondary">Save</button></div></form></div>
+<div class="panel"><h3>Confirm Who Invited You</h3><p>Did someone invite you to Texas Badlands? Enter their code or use their personal link. You can only confirm one recruiter per contest.</p><form id="claimForm"><label for="claimCode">Recruiter code</label><div class="inline-input"><input id="claimCode" maxlength="12" placeholder="12-character code" autocapitalize="characters" required><button class="button" type="submit">Confirm</button></div></form><p class="muted tiny" id="claimNote">Confirmation is available when the contest is active.</p></div>
+</div>
+<div class="two-col">
+<div class="panel"><h3>Players You Recruited</h3><div id="myRecruits" class="stack"><p class="muted">Loading your recruits…</p></div></div>
+<div class="panel"><h3>Your Playtime Check-Ins</h3><div id="myInviter" class="muted">Loading your referral…</div>
+<form id="checkinForm" hidden><label for="playedStart">Session start (your local time)</label><input id="playedStart" type="datetime-local" required><label for="playedEnd">Session end (your local time)</label><input id="playedEnd" type="datetime-local" required><label for="checkinNote">Optional note</label><textarea id="checkinNote" rows="2" maxlength="500" placeholder="Where did you play?"></textarea><button class="button full" type="submit">Submit for Staff Verification</button></form>
+<div id="myCheckins" class="stack small-space"></div><p class="muted tiny">Reported time does not count until staff approves the session. Screenshots alone are not proof.</p></div>
+</div></div>
+</div></section>
+<section class="section" id="rules"><div class="wrap"><div class="section-heading"><div><div class="eyebrow">How to Qualify</div><h2>PLAY REAL. <span>EARN TRUST.</span></h2></div></div><div class="rules-grid">
+<div class="rule"><strong>01</strong><h3>Invite friends</h3><p>Share your link. The invited player creates an account and confirms your referral. Each recruit may credit only one recruiter.</p></div>
+<div class="rule"><strong>02</strong><h3>Help them stick around</h3><p>A recruit must play at least six verified hours on three separate days within their first fourteen days on the DayZ server.</p></div>
+<div class="rule"><strong>03</strong><h3>Earn consideration</h3><p>High-ranking participants may be considered for a moderator interview or a 7-day trial. Final staff decisions belong to server ownership.</p></div>
+</div><div class="notice plain">Fake accounts, self-referrals, fabricated check-ins and other attempts to manipulate rankings may result in disqualification. Player activity is verified by staff; the website does not automatically access Host Havoc logs.</div></div></section>
+<section class="section alt" id="adminPanel" hidden><div class="wrap"><div class="section-heading"><div><div class="eyebrow">Staff Only</div><h2>VERIFICATION <span>DESK.</span></h2></div></div>
+<div class="two-col"><div class="panel"><h3>Contest Controls</h3><p id="adminContestDetails" class="muted">Loading…</p><div class="inline-input"><button id="activateContest" class="button" type="button">Activate Contest</button><button id="closeContest" class="button secondary" type="button">Complete Contest</button></div><p class="muted tiny">Only the authorized owner/reviewers can make changes. Double-check dates before activation.</p></div>
+<div class="panel"><h3>Review Player Check-Ins</h3><div class="stack" id="adminCheckins">Loading…</div></div></div>
+<div class="panel" style="margin-top:20px"><h3>Referral Activity &amp; Verified Sessions</h3><div class="stack" id="adminReferrals">Loading…</div></div>
+</div></section>
+</main>
+<footer><div class="wrap footer-inner"><p>© <span id="year"></span> Texas Badlands DayZ. Not affiliated with Bohemia Interactive.</p><a href="/">Back to Texas Badlands</a></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="recruitment.js" defer></script>
+</body></html>
