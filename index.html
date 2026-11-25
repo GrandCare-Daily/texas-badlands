@@ -60,7 +60,7 @@
   document.getElementById('close-snafu').addEventListener('click',()=>snafuDialog.close());
   snafuDialog.addEventListener('click',e=>{if(e.target===snafuDialog)snafuDialog.close();});
   // Replace these empty values with your official community URLs before publishing.
-  const LINKS = {discord: 'https://discord.gg/fXeP7mnURk', facebook: 'https://www.facebook.com/profile.php?id=61595218304769', reddit: 'https://www.reddit.com/r/TexasBadlandsDayz/', kofi: 'https://ko-fi.com/texas_badlands_dayz'};
+  const LINKS = {discord: 'https://tinyurl.com/FAFO-DISCORD', facebook: 'https://www.facebook.com/profile.php?id=61595218304769', reddit: 'https://www.reddit.com/r/TexasBadlandsDayz/', kofi: 'https://ko-fi.com/texas_badlands_dayz'};
   document.getElementById('year').textContent = new Date().getFullYear();
   const menu = document.getElementById('menu'), links = document.getElementById('links');
   menu.addEventListener('click',()=>{const open=links.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));});
