@@ -1,4 +1,4 @@
-/* Texas Badlands Recruitment HQ
+/* FAFO Territory Recruitment HQ
  * Public URL and publishable key only. Never place secret/service-role credentials here.
  * Depends on the existing Supabase RLS policies. No browser-side admin bypass.
  */
@@ -225,7 +225,7 @@
       if (!recruiter) throw new Error("No recruiter has that code.");
       if (recruiter.id === state.user.id) throw new Error("You cannot refer yourself.");
       const agreed = window.confirm("Confirm that " + recruiter.dayz_name +
-        " genuinely invited you to Texas Badlands? This can only be claimed once.");
+        " genuinely invited you to FAFO Territory? This can only be claimed once.");
       if (!agreed) return;
       const { error } = await client.from("tb_referrals")
         .insert({ contest_id: 1, recruiter_id: recruiter.id, recruit_id: state.user.id });
@@ -395,7 +395,7 @@
       email: byId("loginEmail").value.trim(), password: byId("loginPassword").value
     });
     if (error) return message(errorText(error), true);
-    message("Welcome back to the Badlands.");
+    message("Welcome back to FAFO Territory.");
     await loadIdentity();
   });
 
