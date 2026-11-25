@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#08120d">
-<meta name="description" content="Texas Badlands DayZ recruitment challenge: invite survivors, earn verified referrals, and compete for a trial moderator interview.">
-<title>Recruitment HQ | Texas Badlands DayZ</title>
-<link rel="icon" type="image/png" href="logo.png">
+<meta name="theme-color" content="#100e0d">
+<meta name="description" content="FAFO Territory DayZ recruitment challenge: invite survivors, earn verified referrals, and compete for a trial moderator interview.">
+<title>Recruitment HQ | FAFO Territory DayZ</title>
+<link rel="icon" type="image/jpeg" href="fafo-logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,13 +14,13 @@
 </head>
 <body>
 <header class="topbar"><div class="wrap top-inner">
-<a class="brand" href="/"><img src="logo.png" alt="Texas Badlands logo"><span>TEXAS <em>BADLANDS</em></span></a>
+<a class="brand" href="/"><img src="fafo-logo.jpg" alt="FAFO Territory logo"><span>FAFO <em>TERRITORY</em></span></a>
 <nav aria-label="Recruitment navigation"><a href="/">Main Website</a><a href="#leaderboard">Leaderboard</a><a href="#dashboard">My Dashboard</a><a class="nav-cta" href="https://discord.gg/fXeP7mnURk" target="_blank" rel="noopener noreferrer">Discord ↗</a></nav>
 </div></header>
 <main>
 <section class="hero"><div class="wrap hero-grid"><div>
-<div class="eyebrow">DayZ PC · Texas Badlands Community</div>
-<h1>RECRUIT <span>THE BADLANDS.</span></h1>
+<div class="eyebrow">DayZ PC · FAFO Territory Community</div>
+<h1>RECRUIT <span>THE TERRITORY.</span></h1>
 <p>Invite real survivors. Help them find their home. Earn your place on the recruitment leaderboard—and consideration for the moderator team.</p>
 <div class="hero-actions"><a class="button" href="#dashboard">Join the Challenge</a><a class="button secondary" href="#rules">View the Rules</a></div>
 </div><div class="hero-panel"><div class="eyebrow">Contest Status</div><strong id="contestStatus" class="status-large">Checking…</strong><p id="contestDates">Loading contest details.</p><div class="stat-row"><div><b>6 hours</b><small>Verified playtime</small></div><div><b>3 days</b><small>Separate days</small></div><div><b>14 days</b><small>To qualify</small></div></div></div></div></section>
@@ -29,7 +29,7 @@
 <section class="section alt" id="dashboard"><div class="wrap"><div class="section-heading"><div><div class="eyebrow">Your Recruitment HQ</div><h2>BUILD <span>YOUR TEAM.</span></h2></div><p>Your referral code, confirmed recruits, reported activity, and progress toward the contest.</p></div>
 <div id="passwordChangePanel" class="panel" hidden style="margin-bottom:24px">
 <h3 id="changePasswordTitle">Set a new password</h3>
-<p class="muted">Set a new password for your Texas Badlands Recruitment account.</p>
+<p class="muted">Set a new password for your FAFO Territory Recruitment account.</p>
 <form id="passwordChangeForm">
 <label for="newPassword">New password (12 characters or longer)</label>
 <input type="password" id="newPassword" minlength="12" autocomplete="new-password" required>
@@ -62,7 +62,7 @@
 <div class="two-col">
 <div class="panel"><h3>Your Recruiter Link</h3><p>Send this link to the friends you invite. Each friend must log in and confirm you as their recruiter.</p><label for="shareLink">Shareable referral URL</label><div class="inline-input"><input id="shareLink" readonly><button class="button" id="copyLink" type="button">Copy</button></div><p class="muted tiny">Your code: <strong id="myCode"></strong></p>
 <form id="nameForm" class="small-form"><label for="editName">Update your DayZ name</label><div class="inline-input"><input id="editName" maxlength="32" required><button type="submit" class="button secondary">Save</button></div></form></div>
-<div class="panel"><h3>Confirm Who Invited You</h3><p>Did someone invite you to Texas Badlands? Enter their code or use their personal link. You can only confirm one recruiter per contest.</p><form id="claimForm"><label for="claimCode">Recruiter code</label><div class="inline-input"><input id="claimCode" maxlength="12" placeholder="12-character code" autocapitalize="characters" required><button class="button" type="submit">Confirm</button></div></form><p class="muted tiny" id="claimNote">Confirmation is available when the contest is active.</p></div>
+<div class="panel"><h3>Confirm Who Invited You</h3><p>Did someone invite you to FAFO Territory? Enter their code or use their personal link. You can only confirm one recruiter per contest.</p><form id="claimForm"><label for="claimCode">Recruiter code</label><div class="inline-input"><input id="claimCode" maxlength="12" placeholder="12-character code" autocapitalize="characters" required><button class="button" type="submit">Confirm</button></div></form><p class="muted tiny" id="claimNote">Confirmation is available when the contest is active.</p></div>
 </div>
 <div class="two-col">
 <div class="panel"><h3>Players You Recruited</h3><div id="myRecruits" class="stack"><p class="muted">Loading your recruits…</p></div></div>
@@ -82,7 +82,7 @@
 <div class="panel" style="margin-top:20px"><h3>Referral Activity &amp; Verified Sessions</h3><div class="stack" id="adminReferrals">Loading…</div></div>
 </div></section>
 </main>
-<footer><div class="wrap footer-inner"><p>© <span id="year"></span> Texas Badlands DayZ. Not affiliated with Bohemia Interactive.</p><a href="/">Back to Texas Badlands</a></div></footer>
+<footer><div class="wrap footer-inner"><p>© <span id="year"></span> FAFO Territory DayZ. Not affiliated with Bohemia Interactive.</p><a href="/">Back to FAFO Territory</a></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="recruitment.js" defer></script>
 </body></html>
